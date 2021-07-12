@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  server:
+
+  number_api:
+    container_name: number_gen_api
+    image: hgwright/number_gen_api
+    build: ./number_api
+  prompt_api:
+    container_name: prompt_gen_api
+    image: hgwright/prompt_gen_api
+    build: ./prompt_api
+  word_api:
+    container_name: word_gen_api
+    image: hgwright/word_gen_api
+    build: ./word_api
