@@ -1,7 +1,12 @@
 version: '3.8'
 services:
   server:
-
+    container_name: challenge_server
+    image: hgwright/challenge_server
+    build: ./server
+    ports:
+    - published: 5000
+      target: 5000
   number_api:
     container_name: number_gen_api
     image: hgwright/number_gen_api

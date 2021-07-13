@@ -6,6 +6,6 @@ app = Flask(__name__)
 def get_challenge():
     challenge = ''
     if len(get_word) <= 3 or int(get_number) >= 10:
-        return challenge = random.choice(['stand on one leg', 'pat your head'])
+        return challenge = random.choice(['while standing on one leg', 'while patting your head', 'while rubbing your belly'])
     else:
         return challenge
