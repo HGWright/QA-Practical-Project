@@ -9,7 +9,7 @@ def get_prompt():
     if len(word_and_num["word"]) <= 3 or word_and_num["num"] >= 10:
         prompt = random.choice(['while standing on one leg', 'while patting your head', 'while rubbing your belly'])
     else:
-        challenge = 'with no additional challenge'
+        prompt = 'with no additional challenge'
     return jsonify({"prompt": prompt})
 
 if __name__ == "__main__":

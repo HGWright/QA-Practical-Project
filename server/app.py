@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
 import requests
 from os import getenv
 from sqlalchemy import desc
@@ -8,7 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DATABASE_URI')
 
 db = SQLAlchemy(app)
 
-class Challenges(db.model):
+class Challenges(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     word = db.Column(db.String(50), nullable = False)
     number = db.Column(db.Integer, nullable = False)
@@ -23,12 +24,12 @@ def home():
     prompt = requests.post('http://prompt_api:5002/get_prompt', json = {"word": word_dict["word"], "num": number_dict["num"]})
     prompt_dict = prompt.json()
 
-    recent_challenges = Challenges.query.order_by(desc(Challenges.id)).limit(5).all
+    recent_challenges = Challenges.query.order_by(desc(Challenges.id)).limit(5).all()
     db.session.add(
         Challenges(
             word = word_dict["word"],
-            number = number = number_dict["num"],
-            prompt = prompt = prompt_dict["prompt"]
+            number = number_dict["num"],
+            prompt = prompt_dict["prompt"]
         )
     )
     db.session.commit()

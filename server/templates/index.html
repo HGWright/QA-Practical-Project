@@ -15,8 +15,8 @@
             Your last 5 Challenges
         </h2>
         <p>
-            {% for word in recent_challenges %}
-            Your challenge is to describe {{ word }} in {{ number }} words {{ prompt }}
+            {% for challenge in recent_challenges %}
+            Your challenge is to describe {{ challenge.word }} in {{ challenge.number }} words {{ challenge.prompt }}
             <br>
             {% endfor %}
         </p>
