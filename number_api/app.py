@@ -1,10 +1,12 @@
-from flask import Flask, request
-from random import random.randint
+from flask import Flask, request, jsonify
+import random
 
-@app.route('get_number', methods = ['GET'])
+app = Flask(__name__)
+
+@app.route('/get_number', methods = ['GET'])
 def get_number():
     ran_num = random.randint(0,21)
-    return jasonify({"num": ran_num})
+    return jsonify({"num": ran_num})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5001, debug=True)
