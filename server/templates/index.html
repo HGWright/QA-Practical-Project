@@ -11,5 +11,14 @@
         <p>
             Your challenge is to describe {{ word }} in {{ number }} words {{ prompt }}
         </p>
+        <h2>
+            Your last 5 Challenges
+        </h2>
+        <p>
+            {% for challenge in recent_challenges %}
+            Your challenge is to describe {{ challenge.word }} in {{ challenge.number }} words {{ challenge.prompt }}
+            <br>
+            {% endfor %}
+        </p>
     </body>
 </html>
