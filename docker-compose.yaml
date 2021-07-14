@@ -7,6 +7,8 @@ services:
     ports:
     - published: 5000
       target: 5000
+    environment:
+      DATABASE_URI: ${DATABASE_URI}
   number_api:
     container_name: number_gen_api
     image: hgwright/number_gen_api
