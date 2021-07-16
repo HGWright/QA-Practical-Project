@@ -1,0 +1,7 @@
+---
+- name: Add worker to swarm
+  community.docker.docker_swarm:
+    state: join
+    advertise_addr: "{{ inventory_hostname }}"
+    join_token: "{{ hostvars['34.89.35.139']['swarm_info']['swarm_facts']['JoinTokens']['Worker'] }}"
+    remote_addrs: [ '34.89.35.139:2377' ]
