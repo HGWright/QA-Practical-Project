@@ -17,11 +17,11 @@ class Challenges(db.Model):
 
 @app.route('/')
 def home():
-    word = requests.get('http://word_api:5003/get_word')
+    word = requests.get('http://challenge_word_api:5003/get_word')
     word_dict = word.json()
-    number = requests.get('http://number_api:5001/get_number')
+    number = requests.get('http://challenge_number_api:5001/get_number')
     number_dict = number.json()
-    prompt = requests.post('http://prompt_api:5002/get_prompt', json = {"word": word_dict["word"], "num": number_dict["num"]})
+    prompt = requests.post('http://challenge_prompt_api:5002/get_prompt', json = {"word": word_dict["word"], "num": number_dict["num"]})
     prompt_dict = prompt.json()
 
     recent_challenges = Challenges.query.order_by(desc(Challenges.id)).limit(5).all()
