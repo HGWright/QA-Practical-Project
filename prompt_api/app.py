@@ -3,10 +3,10 @@ import random
 
 app = Flask(__name__)
 
-@app.route('/get_prompt', methods = ['POST'])
+@app.route('/get_prompt', methods = ['GET', 'POST'])
 def get_prompt():
     word_and_num = request.get_json()
-    if len(word_and_num["word"]) <= 3 or word_and_num["num"] >= 10:
+    if len(word_and_num["word"]) <= 3 or int(word_and_num["num"]) >= 10:
         prompt = random.choice(['while standing on one leg', 'while patting your head', 'while rubbing your belly'])
     else:
         prompt = 'with no additional challenge'
