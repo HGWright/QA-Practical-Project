@@ -23,10 +23,10 @@ pipeline{
             stage('Push Containers'){
                 steps{
                     sh 'docker login -u hgwright -p ${docker_password}'
-                    sh 'docker push hgwright/challenge_server:${app_version}'
-                    sh 'docker push hgwright/challenge_number_api:${app_version}'
-                    sh 'docker push hgwright/challenge_word_api:${app_version}'
-                    sh 'docker push hgwright/challenge_prompt_api:${app_version}'
+                    sh 'docker push hgwright/challenge_server:latest'
+                    sh 'docker push hgwright/challenge_number_api:latest'
+                    sh 'docker push hgwright/challenge_word_api:latest'
+                    sh 'docker push hgwright/challenge_prompt_api:latest'
                 }
             }
             stage('Deploy Application'){
