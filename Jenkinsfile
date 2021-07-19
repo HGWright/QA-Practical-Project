@@ -46,7 +46,7 @@ pipeline{
                             credentialsId: 'docker-registry-credentials',
                             usernameVariable: 'DOCKER_USER',
                             passwordVariable: 'DOCKER_PASSWORD'
-                    docker stack deploy --compose-file docker-compose.yaml challenge
+                    sh docker stack deploy --compose-file docker-compose.yaml challenge
                 }
             }
         }
