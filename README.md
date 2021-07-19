@@ -1,1 +1,1 @@
-# QA-Practical-Projec
+# QA-Practical-Proje
