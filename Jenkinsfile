@@ -30,7 +30,7 @@ pipeline{
             stage('Test Application'){
                 steps{
                     sh python3 -m venv venv
-                    . venv/bin/activate
+                    sh source /venv/bin/activate
                     sh pip3 install -r requirements.txt
                     sh cd /home/henry/QA-Practical-Project-4/number_api && sh pytest
                     sh cd /home/henry/QA-Practical-Project-4/word_api && sh pytest
@@ -46,7 +46,7 @@ pipeline{
                             credentialsId: 'docker-registry-credentials',
                             usernameVariable: 'DOCKER_USER',
                             passwordVariable: 'DOCKER_PASSWORD'
-                    sh "docker stack deploy --compose-file docker-compose.yaml challenge"
+                    docker stack deploy --compose-file docker-compose.yaml challenge
                 }
             }
         }
