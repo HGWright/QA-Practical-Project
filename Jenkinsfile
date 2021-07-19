@@ -17,7 +17,6 @@ pipeline{
                     sh "python3 -m pytest ./number_api --cov=app"
                     sh "python3 -m pytest ./word_api --cov=app"
                     sh "python3 -m pytest ./prompt_api --cov=app"
-                    sh "python3 -m pytest ./server --cov=app"
                     
                 }
             }
