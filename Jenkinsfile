@@ -8,7 +8,7 @@ pipeline{
         stages{
             stage('Build Container'){
                 steps{
-                    sh "sudo docker-compose up -d --build"
+                    sh "sudo docker-compose build"
                 }
             }
             stage('Testing the Application'){
