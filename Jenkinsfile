@@ -8,9 +8,8 @@ pipeline{
         stage{
             stage('Build Image'){
                 steps{
-                    
-                            docker.withRegistry("${DOCKER_REGISTRY}", 'docker-registry-credentials') {
-                            def img = docker.build("${CONTAINER}:${VERSION}")
+                    docker.withRegistry("${DOCKER_REGISTRY}", 'docker-registry-credentials') {
+                        def img = docker.build("${CONTAINER}:${VERSION}")
                             img.push()
                             sh "docker rmi ${img.id}"
                     
@@ -20,10 +19,9 @@ pipeline{
         }
             stage('Tag & Push Image'){
                 steps{
-                    
-                        if (env.rollback == 'false'){
-                            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
-                                image.push("${env.app_version}")
+                    if (env.rollback == 'false'){
+                        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
+                        image.push("${env.app_version}")
                             
                         }
                     }
@@ -32,7 +30,7 @@ pipeline{
             stage('Test Application'){
                 steps{
                     sh python3 -m venv venv
-                    . ./venv/bin/activate
+                    . venv/bin/activate
                     sh pip3 install -r requirements.txt
                     sh cd /home/henry/QA-Practical-Project-4/number_api && sh pytest
                     sh cd /home/henry/QA-Practical-Project-4/word_api && sh pytest
