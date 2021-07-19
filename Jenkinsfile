@@ -13,12 +13,11 @@ pipeline{
             }
             stage('Testing the Application'){
                 steps{
-                    sh "sudo pip3 install -r requirements.txt"
-                    sh "pytest ./number_api --cov=app --cov-report html"
-                    sh "pytest ./word_api --cov=app --cov-report html"
-                    sh "pytest ./prompt_api --cov=app --cov-report html"
-                    sh "pytest ./server --cov=app --cov-report html"
-                    archiveArtifacts artifacts: 'number_api/htmlcov/', 'word_api/htmlcov/', 'server/htmlcov/', 'prompt_api/htmlcov/'
+                    sh "pytest ./number_api --cov=app"
+                    sh "pytest ./word_api --cov=app"
+                    sh "pytest ./prompt_api --cov=app"
+                    sh "pytest ./server --cov=app"
+                    
                 }
             }
             stage('Push Containers'){
