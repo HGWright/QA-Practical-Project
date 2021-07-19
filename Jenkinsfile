@@ -1,52 +1,40 @@
 pipeline{
         agent any
         environment {
-
+            DATABASE_URI = credentials('DATABASE_URI')
+            docker_password = credentials('docker_passoword')
             app_version = 'v1'
-            rollback = 'false'
         }
-        stage{
-            stage('Build Image'){
+        stages{
+            stage('Build Container'){
                 steps{
-                    docker.withRegistry("${DOCKER_REGISTRY}", 'docker-registry-credentials') {
-                        def img = docker.build("${CONTAINER}:${VERSION}")
-                            img.push()
-                            sh "docker rmi ${img.id}"
-                    
+                    sh "sudo docker-compose up -d --build"
                 }
             }
-            }
-        }
-            stage('Tag & Push Image'){
+            stage('Testing the Application'){
                 steps{
-                    if (env.rollback == 'false'){
-                        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
-                        image.push("${env.app_version}")
-                            
-                        }
-                    }
+                    sh "sudo pip3 install -r requirements.txt"
+                    sh "pytest ./number_api --cov=app --cov-report html"
+                    sh "pytest ./word_api --cov=app --cov-report html"
+                    sh "pytest ./prompt_api --cov=app --cov-report html"
+                    sh "pytest ./server --cov=app --cov-report html"
+                    archiveArtifacts artifacts: 'number_api/htmlcov/', 'word_api/htmlcov/', 'server/htmlcov/', 'prompt_api/htmlcov/'
                 }
             }
-            stage('Test Application'){
+            stage('Push Containers'){
                 steps{
-                    sh python3 -m venv venv
-                    sh source /venv/bin/activate
-                    sh pip3 install -r requirements.txt
-                    sh cd /home/henry/QA-Practical-Project-4/number_api && sh pytest
-                    sh cd /home/henry/QA-Practical-Project-4/word_api && sh pytest
-                    sh cd /home/henry/QA-Practical-Project-4/prompt_api && sh pytest
-                    sh cd /home/henry/QA-Practical-Project-4/server && sh pytest
-                    sh sudo rm -rf venv
+                    sh 'docker login -u hgwright -p ${docker_password}'
+                    sh 'docker push hgwright/challenge_server:${app_version}'
+                    sh 'docker push hgwright/challenge_number_api:${app_version}'
+                    sh 'docker push hgwright/challenge_word_api:${app_version}'
+                    sh 'docker push hgwright/challenge_prompt_api:${app_version}'
                 }
             }
-            stage('Deploy App'){
+            stage('Deploy Application'){
                 steps{
-                    withCredentials([
-                        usernamePassword(
-                            credentialsId: 'docker-registry-credentials',
-                            usernameVariable: 'DOCKER_USER',
-                            passwordVariable: 'DOCKER_PASSWORD'
-                    sh docker stack deploy --compose-file docker-compose.yaml challenge
+                    sh "docker stack deploy --compose-file docker-compose.yaml challenge"
                 }
+
             }
         }
+    }
