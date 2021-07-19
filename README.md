@@ -36,7 +36,7 @@ We are using:
 * VSCode for Programming
 * Git for Version Control
 * Jenkins for CI server
-* Pytest automated with Jankins for Testing
+* Pytest automated with Jenkins for Testing
 * Docker Compose for Build and Push
 * Ansible for Configuration
 * Docker Swarm deployed my Jenkins to Deploy
@@ -122,25 +122,25 @@ My Jenkinsfile has 4 stages:
 * Push the Containers
 * Deply the Application
 
-# Building the Application
+### Building the Application
 This is the easiest step, all we have to do is make single version of each service.
 
 ![image](https://user-images.githubusercontent.com/84939917/126134417-4e5d2b06-595b-46bd-bf9c-74b1f7158839.png)
 
 
-# Testing the Application
+### Testing the Application
 
 ![image](https://user-images.githubusercontent.com/84939917/126132999-7229cf97-df91-44a2-bec1-842902d819b6.png)
 
 To test the application we have to install the requirements that arnt installed with Ansible, then test our application with pytest just like we would do in the VSCode terminal.
 
-# Pushing the Containers
+### Pushing the Containers
 
 ![image](https://user-images.githubusercontent.com/84939917/126134503-4d731f46-a7d0-4941-9ed0-139502b64007.png)
 
 This process is pushing the containers up to docker hub, so we have to login with a jenkins credential (along with the other credential for the DATABASE_URI). The containers are pushed so that they can be deployed in the next stage using docker swarm and the docker compose file.
 
-# Deploying the Application
+### Deploying the Application
 
 ![image](https://user-images.githubusercontent.com/84939917/126134604-697e7c30-bcaa-4dbe-b9d1-c9bc6faddbcf.png)
 
