@@ -8,23 +8,23 @@ pipeline{
         stage{
             stage('Build Image'){
                 steps{
-                    script{
+                    
                             docker.withRegistry("${DOCKER_REGISTRY}", 'docker-registry-credentials') {
                             def img = docker.build("${CONTAINER}:${VERSION}")
                             img.push()
                             sh "docker rmi ${img.id}"
-                    }
+                    
                 }
             }
             }
         }
             stage('Tag & Push Image'){
                 steps{
-                    script{
+                    
                         if (env.rollback == 'false'){
                             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
                                 image.push("${env.app_version}")
-                            }
+                            
                         }
                     }
                 }
