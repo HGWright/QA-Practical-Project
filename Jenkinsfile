@@ -2,7 +2,7 @@ pipeline{
         agent any
         environment {
             DATABASE_URI = credentials('DATABASE_URI')
-            docker_password = credentials('docker_passoword')
+            docker_password = credentials('docker_password')
             app_version = 'v1'
         }
         stages{
