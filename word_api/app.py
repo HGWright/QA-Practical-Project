@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/get_word', methods = ['GET'])
 def get_word():
-    ran_word = random.choice(['Happy', 'Donkey', 'Swing'])
+    ran_word = random.choice(['Happy', 'Donkey', 'Swing', 'Party'])
     return jsonify({"word": ran_word})
 
 if __name__ == "__main__":
