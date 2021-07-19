@@ -13,10 +13,10 @@ pipeline{
             }
             stage('Testing the Application'){
                 steps{
-                    sh "pytest ./number_api --cov=app"
-                    sh "pytest ./word_api --cov=app"
-                    sh "pytest ./prompt_api --cov=app"
-                    sh "pytest ./server --cov=app"
+                    sh "python3 -m pytest ./number_api --cov=app"
+                    sh "python3 -m pytest ./word_api --cov=app"
+                    sh "python3 -m pytest ./prompt_api --cov=app"
+                    sh "python3 -m pytest ./server --cov=app"
                     
                 }
             }
